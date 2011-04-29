@@ -1,0 +1,29 @@
+EXE := executable_name
+
+OBJDIR := obj
+
+CC := g++
+CXXFLAGS := -Wall -DWIN32_LEAN_AND_MEAN
+LDFLAGS := -Wl,-enable-auto-import -static
+
+SRCS := $(wildcard src/*.cpp)
+DEPS := $(wildcard src/*.h*)
+OBJS := $(patsubst src/%.cpp,obj/%.o,$(SRCS))
+
+all : LDFLAGS += -O3
+all : $(EXE)
+
+debug : CXXFLAGS += -pg
+debug : LDFLAGS += -pg -O0
+debug : $(EXE)
+
+$(EXE) : $(OBJS)
+        $(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
+
+obj/%.o : src/%.cpp $(DEPS)
+        $(CC) -c $(CXXFLAGS) -o $@ $<
+
+clean:
+        rm -f obj/*.o $(EXE)
+
+.PHONY: all clean
