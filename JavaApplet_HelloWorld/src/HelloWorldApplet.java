@@ -12,13 +12,13 @@ public class HelloWorldApplet extends JApplet {
     */
     public void init() { 
         // Get some parameters and write them to the log.
+        BasicConfigurator.resetConfiguration();
         BasicConfigurator.configure();
-        logger.info("HelloWorld Applet-style");
 
         int appWidth = Integer.parseInt(this.getParameter("width"));
         int appHeight = Integer.parseInt(this.getParameter("height")); 
-        logger.info("Applet size was specified at " + appWidth + "x" + appHeight);
-
+        logger.info("Initializing applet to " + appWidth + "x" + appHeight);
+        
         // add content jpanels here...
         // this.add(new JPanel(appWidth, appHeight));
     }
